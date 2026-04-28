@@ -1,0 +1,12 @@
+nohup: ignoring input
+[START] spv gamma=0  -> logs/spv_gamma0.log
+[START] spv gamma=0.8  -> logs/spv_gamma0.8.log
+[START] spv gamma=1.5  -> logs/spv_gamma1.5.log
+[START] avm gamma=0  -> logs/avm_gamma0.log
+[START] avm gamma=0.8  -> logs/avm_gamma0.8.log
+[START] avm gamma=1.5  -> logs/avm_gamma1.5.log
+
+All 6 jobs launched. PIDs stored in logs/*.pid
+Monitor with:  tail -f logs/*.log
+Check done:    ls -lh DATA/POS_GAMMA_HETERO/ DATA/POS_GAMMA_VERTEX_HETERO/
+All done.

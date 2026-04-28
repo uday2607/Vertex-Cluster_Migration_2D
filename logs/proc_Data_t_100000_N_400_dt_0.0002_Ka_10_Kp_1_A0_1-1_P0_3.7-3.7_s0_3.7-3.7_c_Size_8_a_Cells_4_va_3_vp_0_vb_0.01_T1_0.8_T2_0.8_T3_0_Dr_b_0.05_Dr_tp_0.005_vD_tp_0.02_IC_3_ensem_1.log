@@ -1,0 +1,8 @@
+[OK] Data_t_100000_N_400_dt_0.0002_Ka_10_Kp_1_A0_1-1_P0_3.7-3.7_s0_3.7-3.7_c_Size_8_a_Cells_4_va_3_vp_0_vb_0.01_T1_0.8_T2_0.8_T3_0_Dr_b_0.05_Dr_tp_0.005_vD_tp_0.02_IC_3_ensem_1.nc
+[DONE] RESULTS/PROCESSED_DATA/ensemble_summary.csv
+[DONE] RESULTS/PROCESSED_DATA/ensemble_aggregates.json
+[DONE] Plot: RESULTS/PLOTS/POS_GAMMA_HETERO/Data_t_100000_N_400_dt_0.0002_Ka_10_Kp_1_A0_1-1_P0_3.7-3.7_s0_3.7-3.7_c_Size_8_a_Cells_4_va_3_vp_0_vb_0.01_T1_0.8_T2_0.8_T3_0_Dr_b_0.05_Dr_tp_0.005_vD_tp_0.02_IC_3_ensem_1_timeseries_plot.png
+  frame 1/32  frame 10/32  frame 20/32  frame
+[WARN]
+[WARN] ffmpeg not found — saving GIF.
+[DONE] Movie: RESULTS/MOVIES/Data_t_100000_N_400_dt_0.0002_Ka_10_Kp_1_A0_1-1_P0_3.7-3.7_s0_3.7-3.7_c_Size_8_a_Cells_4_va_3_vp_0_vb_0.01_T1_0.8_T2_0.8_T3_0_Dr_b_0.05_Dr_tp_0.005_vD_tp_0.02_IC_3_ensem_1.gif

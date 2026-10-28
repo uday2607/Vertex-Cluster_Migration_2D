@@ -1,44 +1,50 @@
 #!/bin/bash
-# Compile, simulate (6 parallel), then process all results.
-# Run: nohup bash run_all.sh > logs/master.log 2>&1 &
-
+# End-to-end demo: compile -> simulate three interfacial tensions in SPV and in AVM -> movie.
+#
+#   bash run_all.sh            # quick demo: 50,000 steps (T = 10), a few minutes
+#   bash run_all.sh full       # paper length: 500,000 steps (T = 100), ~20 min per run
+#
+# Output goes to DATA/demo/ (not tracked by git) and RESULTS/demo/.
+# Set PYTHON to pick an interpreter (needs numpy, scipy, matplotlib, freud-analysis, networkx, numba, ffmpeg).
 set -euo pipefail
-mkdir -p logs DATA/POS_GAMMA_HETERO DATA/POS_GAMMA_VERTEX_HETERO
+cd "$(dirname "$0")"
+source load_modules.sh      # the binaries need the CUDA runtime library at run time
 
-echo "=== [1/3] Compiling ===" | tee logs/master.log
-module load cuda/12.0.0 cgal/4.9.1 eigen/3.4.0 netcdf/4.1.3
-make spv_pos_gamma_hetero_adhesion.out spv_neg_gamma_hetero_adhesion.out \
-     avm_pos_gamma_hetero_adhesion.out avm_neg_gamma_hetero_adhesion.out 2>&1 | tee -a logs/master.log
-echo "=== Compile done ===" | tee -a logs/master.log
+MODE="${1:-quick}"
+STEPS=50000;  SAVE=0.5      # quick: save a frame every 0.5 time units so the short run still makes a movie
+[ "$MODE" = "full" ] && { STEPS=500000; SAVE=5; }
+PYTHON="${PYTHON:-python3}"
+OUT=DATA/demo
+mkdir -p "$OUT" RESULTS/demo logs
 
-echo "=== [2/3] Removing old nc files ===" | tee -a logs/master.log
-rm -f DATA/POS_GAMMA_HETERO/*.nc DATA/POS_GAMMA_VERTEX_HETERO/*.nc
+echo "=== [1/3] Compiling ==="
+bash load_mod_and_make.sh spv
+bash load_mod_and_make.sh avm
 
-echo "=== [3/3] Launching 6 simulations ===" | tee -a logs/master.log
-for gamma in 0 0.8 1.5; do
-    ./spv_pos_gamma_hetero_adhesion.out -t 100000 -e 0.0002 -n 400 -v 3 -u 0 -y 0.01 \
-        -b 0.005 -j 0.02 -i 3 -G $gamma -H $gamma -I 0 -x 1 \
-        > logs/spv_gamma${gamma}.log 2>&1 &
-    echo "[LAUNCHED] SPV gamma=$gamma (pid $!)" | tee -a logs/master.log
-
-    ./avm_pos_gamma_hetero_adhesion.out -t 100000 -e 0.0002 -n 400 -v 3 -u 0 -y 0.01 \
-        -b 0.005 -j 0.02 -i 3 -G $gamma -H $gamma -I 0 -x 1 \
-        > logs/avm_gamma${gamma}.log 2>&1 &
-    echo "[LAUNCHED] AVM gamma=$gamma (pid $!)" | tee -a logs/master.log
+echo "=== [2/3] Simulating (6 runs in parallel, $STEPS steps each) ==="
+# Homogeneous clusters: 8 cells, all active (-m 8 -l 8), no passive followers (-u 0).
+# -G = interfacial tension gamma between the active cells and the background tissue.
+for g in 0 0.2 5; do
+    bin/spv_pos_gamma.out -t $STEPS -e 0.0002 -n 400 -m 8 -l 8 -v 1.5 -u 0 -i 1 -x 5 \
+        -G $g -H 0 -I 0 -S $SAVE -O $OUT > logs/spv_gamma$g.log 2>&1 &
 done
-
-echo "Waiting for all 6 sims..." | tee -a logs/master.log
-wait
-echo "=== All sims done ===" | tee -a logs/master.log
-ls -lh DATA/POS_GAMMA_HETERO/ DATA/POS_GAMMA_VERTEX_HETERO/ | tee -a logs/master.log
-
-echo "=== Processing results ===" | tee -a logs/master.log
-PYTHON=/nfs/scistore18/hannegrp/ugubbala/cell_env/bin/python
-for f in DATA/POS_GAMMA_HETERO/*.nc DATA/POS_GAMMA_VERTEX_HETERO/*.nc; do
-    $PYTHON -m PYTHON_ANALYSIS.cellgpu_analysis run-all \
-        --input "$f" --voronoi --stride 1 --fps 5 --dpi 200 \
-        >> logs/master.log 2>&1 &
+for g in 0 2 5; do
+    bin/avm_pos_gamma.out -t $STEPS -e 0.0002 -n 400 -m 8 -l 8 -v 0.75 -u 0 -i 1 -x 5 \
+        -G $g -H 0 -I 0 -S $SAVE -O $OUT > logs/avm_gamma$g.log 2>&1 &
 done
 wait
-echo "=== ALL DONE ===" | tee -a logs/master.log
-ls -lh RESULTS/MOVIES/ RESULTS/PLOTS/ | tee -a logs/master.log
+echo "simulations done:"; ls -1 $OUT/*/*.nc
+
+echo "=== [3/3] Movie ==="
+SPV=($(ls $OUT/SPV_POS_GAMMA/*_T1_0_T2*.nc $OUT/SPV_POS_GAMMA/*_T1_0.2_T2*.nc $OUT/SPV_POS_GAMMA/*_T1_5_T2*.nc))
+AVM=($(ls $OUT/AVM_POS_GAMMA/*_T1_0_T2*.nc $OUT/AVM_POS_GAMMA/*_T1_2_T2*.nc $OUT/AVM_POS_GAMMA/*_T1_5_T2*.nc))
+"$PYTHON" - "${SPV[@]}" "${AVM[@]}" <<'PY'
+import json, sys
+f = sys.argv[1:]
+spec = json.load(open("PYTHON_ANALYSIS/movies/specs/fig2.json"))
+spec["files"] = f
+spec["title"] = "Demo run: interfacial tension regimes"
+json.dump(spec, open("DATA/demo/demo_spec.json", "w"), indent=2)
+PY
+"$PYTHON" PYTHON_ANALYSIS/movies/make_grid_movie.py --spec DATA/demo/demo_spec.json --out RESULTS/demo/regimes_demo.mp4
+echo "=== ALL DONE: RESULTS/demo/regimes_demo.mp4 ==="

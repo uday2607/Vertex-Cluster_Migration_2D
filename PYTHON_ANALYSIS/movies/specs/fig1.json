@@ -1,0 +1,23 @@
+{
+  "title": "Surrounding tissue mechanics set the invasion",
+  "subtitle": "A cluster of active cells migrating through surrounding tissue  ·  self-propelled Voronoi model",
+  "col_headers": [
+    "Caged",
+    "Internalized"
+  ],
+  "nrow": 1,
+  "ncol": 2,
+  "axis": true,
+  "tags": [
+    "cluster $s_0$ = 3.8  ·  tissue $s_0$ = 3.6  ·  $v_0$ = 1",
+    "cluster $s_0$ = 3.8  ·  tissue $s_0$ = 4.0  ·  $v_0$ = 2.5"
+  ],
+  "panel_w": 7.0,
+  "left": 0.55,
+  "crop_h": 13.5,
+  "files": [
+    "Fig1-SPV-caged",
+    "Fig1-SPV-internalized"
+  ],
+  "frame_sec": 0.08
+}

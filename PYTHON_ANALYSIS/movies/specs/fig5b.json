@@ -1,0 +1,49 @@
+{
+  "title": "Heterotypic interaction vs differential adhesion: two outcomes for Nodal-high, -medium and -low cells",
+  "subtitle": "Self-propelled Voronoi model  ·  3 + 3 + 3 cells",
+  "col_headers": [
+    "Heterotypic interaction  ·  $\\alpha$ = 1, $\\beta$ = 6",
+    "Differential adhesion  ·  $\\alpha$ = 2, $\\beta$ = 6"
+  ],
+  "nrow": 1,
+  "ncol": 2,
+  "tags": [
+    "",
+    ""
+  ],
+  "axis": true,
+  "panel_w": 7.6,
+  "crop_h": 16.0,
+  "crop_x": [
+    0.0,
+    20.0
+  ],
+  "legend_items": [
+    [
+      "#189B6F",
+      "Nodal-high"
+    ],
+    [
+      "#2BC18F",
+      "Nodal-medium"
+    ],
+    [
+      "#9DD8D5",
+      "Nodal-low"
+    ],
+    [
+      "#E9E9FF",
+      "Surrounding tissue"
+    ]
+  ],
+  "files": [
+    "Fig5b-Nodal-Triple-POS",
+    "Fig5b-Nodal-Triple-NEG"
+  ],
+  "frame_sec": 0.08,
+  "type_colors": {
+    "1": "#189B6F",
+    "2": "#2BC18F",
+    "3": "#9DD8D5"
+  }
+}

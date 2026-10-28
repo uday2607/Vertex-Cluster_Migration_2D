@@ -1,0 +1,29 @@
+{
+  "title": "Kinetic pinning at high interfacial tension",
+  "subtitle": "Fixed view on the migrating cluster  ·  dashed line = where the cluster started, dotted line = path of its centre",
+  "col_headers": [
+    "SPV  ·  $v_0$ = 1.5",
+    "AVM  ·  $v_0$ = 0.75"
+  ],
+  "nrow": 1,
+  "ncol": 2,
+  "tags": [
+    "$\\gamma$ = 5",
+    "$\\gamma$ = 5"
+  ],
+  "fixed_window": [
+    13.0,
+    7.8
+  ],
+  "panel_w": 7.0,
+  "left": 0.55,
+  "interface": "length",
+  "axes": true,
+  "periodic_x": true,
+  "legend_wall": false,
+  "files": [
+    "Regimes-SPV-pinning",
+    "Regimes-AVM-pinning"
+  ],
+  "frame_sec": 0.08
+}

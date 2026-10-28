@@ -1,0 +1,30 @@
+{
+  "title": "Lowering adhesion (E-Cad reduced) fragments the cluster and reduces invasion",
+  "subtitle": "Control MO and E-Cad MO  ·  self-propelled Voronoi model, $\\beta$ = 6",
+  "col_headers": [
+    "4-cell cluster"
+  ],
+  "absolute_time": true,
+  "row_labels": [
+    "Control MO",
+    "E-Cad MO"
+  ],
+  "nrow": 2,
+  "ncol": 1,
+  "tags": [
+    "$\\alpha$ = 1.0",
+    "$\\alpha$ = 0.2"
+  ],
+  "axis": true,
+  "panel_w": 7.6,
+  "crop_h": 11.0,
+  "stop_before_x": [
+    null,
+    4.5
+  ],
+  "files": [
+    "Fig4-Nodal-control-4cell",
+    "Fig4-Nodal-Ecad-knockdown-4cell"
+  ],
+  "frame_sec": 0.08
+}

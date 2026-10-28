@@ -1,3 +1,16 @@
+# Changes to the CellGPU engine in this workspace
+
+- `Simple2DCell.h`: `returnCellVertices()` accessor.
+- `voronoiQuadraticEnergyWithTension.h`, `vertexQuadraticEnergyWithTension.h`: `returnTensionMatrix()` accessor.
+- New updaters for the wet vertex model: `selfPropelledCellVertexDynamicsWithAdhesion`,
+  `selfPropelledCellVertexDynamicsWithTypeDissipation` (`inc/updaters`, `src/updaters`).
+- Movies: `PYTHON_ANALYSIS/movies/make_grid_movie.py <fig>` renders every paper movie (fig1-fig5b) from a JSON spec in `specs/` and the example
+  trajectories in `DATA/EXAMPLES/`; `thin_example.py` makes such a compact example from a full run.
+- Every driver takes `-O <dir>` (output root) and `-S <time>` (time between saved frames) and creates its
+  output folder itself.
+
+# Upstream CellGPU change log
+
 # Change log {#changelog}
 
 ### Changes in progress

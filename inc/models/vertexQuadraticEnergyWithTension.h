@@ -37,6 +37,8 @@ class VertexQuadraticEnergyWithTension : public VertexQuadraticEnergy
         void setSurfaceTension(vector<Dscalar> gammas);
         //!Get surface tension
         Dscalar getSurfaceTension(){return gamma;};
+        //!Return reference to the tension matrix GPUArray
+        GPUArray<Dscalar> & returnTensionMatrix(){return tensionMatrix;};
     protected:
         //!The value of surface tension between two cells of different type 
         Dscalar gamma;

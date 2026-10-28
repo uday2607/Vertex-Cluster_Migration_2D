@@ -1,0 +1,37 @@
+{
+  "title": "Leader–follower transport and polarity sorting",
+  "subtitle": "Four leader cells and four passive followers  ·  self-propelled Voronoi model, $v_0$ = 3, $\\gamma$ = 0.8",
+  "col_headers": [
+    "Polarity formation"
+  ],
+  "nrow": 1,
+  "ncol": 1,
+  "tags": [
+    "$\\gamma$ = 0.8"
+  ],
+  "axis": true,
+  "panel_w": 9.0,
+  "crop_h": 12.0,
+  "crop_x": [
+    0.0,
+    20.0
+  ],
+  "legend_items": [
+    [
+      "#06B780",
+      "Leader cells"
+    ],
+    [
+      "#FFCB7B",
+      "Follower cells"
+    ],
+    [
+      "#E9E9FF",
+      "Surrounding tissue"
+    ]
+  ],
+  "files": [
+    "Fig3-SPV-polarity-formation"
+  ],
+  "frame_sec": 0.08
+}

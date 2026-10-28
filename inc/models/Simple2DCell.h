@@ -123,6 +123,8 @@ class Simple2DCell : public Simple2DModel
         virtual GPUArray<Dscalar> & returnMasses(){return cellMasses;};
         //!Return a reference to current Voronoi vertices (needed for T1 barrier measurements)
         GPUArray<Dscalar2> & returnVoroCur(){return voroCur;};
+        //!Return a reference to the cell-vertex list
+        GPUArray<int> & returnCellVertices(){return cellVertices;};
 
         //!Return other data just returns the masses; in this class it's not needed
         virtual GPUArray<Dscalar> & returnOtherData(){return cellMasses;};

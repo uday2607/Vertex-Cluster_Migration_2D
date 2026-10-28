@@ -1,0 +1,51 @@
+{
+  "title": "The Nodal difference decides leader–follower cohesion",
+  "subtitle": "Self-propelled Voronoi model  ·  4 + 4 cells",
+  "col_headers": [
+    "Nodal-high + Nodal-medium  ·  $\\alpha$ = 1, $\\beta$ = 6",
+    "Nodal-high + Nodal-low  ·  $\\alpha$ = 1, $\\beta$ = 6"
+  ],
+  "nrow": 1,
+  "ncol": 2,
+  "tags": [
+    "",
+    ""
+  ],
+  "axis": true,
+  "panel_w": 7.6,
+  "crop_h": 16.0,
+  "crop_x": [
+    0.0,
+    20.0
+  ],
+  "legend_items": [
+    [
+      "#189B6F",
+      "Nodal-high"
+    ],
+    [
+      "#2BC18F",
+      "Nodal-medium"
+    ],
+    [
+      "#9DD8D5",
+      "Nodal-low"
+    ],
+    [
+      "#E9E9FF",
+      "Surrounding tissue"
+    ]
+  ],
+  "files": [
+    "Fig5a-Nodal-HM-4+4",
+    "Fig5a-Nodal-HL-4+4"
+  ],
+  "frame_sec": 0.08,
+  "type_colors": {
+    "1": "#189B6F"
+  },
+  "face2": [
+    "#2BC18F",
+    "#9DD8D5"
+  ]
+}

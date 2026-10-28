@@ -15,37 +15,37 @@ python cellgpu_analysis.py -h
 ### 1) Compute metrics for one file
 
 ```bash
-python cellgpu_analysis.py metrics --input "../DATA/POS_GAMMA_HETERO/Data_..._ensem_1.nc"
+python cellgpu_analysis.py metrics --input "../DATA/SPV_POS_GAMMA/Data_..._ensem_1.nc"
 ```
 
 ### 2) Compute metrics for many files
 
 ```bash
-python cellgpu_analysis.py metrics --input "../DATA/POS_GAMMA_HETERO/*.nc"
+python cellgpu_analysis.py metrics --input "../DATA/SPV_POS_GAMMA/*.nc"
 ```
 
 ### 3) Compute metrics for an ensemble pattern
 
 ```bash
-python cellgpu_analysis.py metrics --input "../DATA/POS_GAMMA_HETERO/Data_..._ensem_{i}.nc" --ensemble-count 100
+python cellgpu_analysis.py metrics --input "../DATA/SPV_POS_GAMMA/Data_..._ensem_{i}.nc" --ensemble-count 100
 ```
 
 ### 4) Plot a generated metrics CSV
 
 ```bash
-python cellgpu_analysis.py plot --timeseries "../PROCESSED_DATA/POS_GAMMA_HETERO/<file>_timeseries.csv"
+python cellgpu_analysis.py plot --timeseries "../PROCESSED_DATA/SPV_POS_GAMMA/<file>_timeseries.csv"
 ```
 
 ### 5) Make a movie from one simulation
 
 ```bash
-python cellgpu_analysis.py movie --input "../DATA/POS_GAMMA_HETERO/<file>.nc" --fps 12 --stride 2
+python cellgpu_analysis.py movie --input "../DATA/SPV_POS_GAMMA/<file>.nc" --fps 12 --stride 2
 ```
 
 ### 6) Run everything for one simulation
 
 ```bash
-python cellgpu_analysis.py run-all --input "../DATA/POS_GAMMA_HETERO/<file>.nc"
+python cellgpu_analysis.py run-all --input "../DATA/SPV_POS_GAMMA/<file>.nc"
 ```
 
 ## Outputs
@@ -91,3 +91,7 @@ python -m unittest discover -s PYTHON_ANALYSIS/tests -p "test_*.py"
 ```bash
 python PYTHON_ANALYSIS/generate_example_nc_files.py --output-dir DATA/EXAMPLES --overwrite
 ```
+
+## Movies
+
+Publication-style movies (single or multi-panel, SPV and AVM) live in `movies/`, see `movies/README.md`.

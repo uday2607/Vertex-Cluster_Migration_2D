@@ -2,7 +2,7 @@
   "title": "Heterotypic interaction vs differential adhesion: two outcomes for Nodal-high, -medium and -low cells",
   "subtitle": "Self-propelled Voronoi model  ·  3 + 3 + 3 cells",
   "col_headers": [
-    "Heterotypic interaction  ·  $\\alpha$ = 1, $\\beta$ = 6",
+    "Heterotypic interactions  ·  $\\alpha$ = 1, $\\beta$ = 6",
     "Differential adhesion  ·  $\\alpha$ = 2, $\\beta$ = 6"
   ],
   "nrow": 1,

@@ -1,10 +1,8 @@
 {
-  "title": "Fragmented, cohesive, pinned: invasion peaks at intermediate tension",
-  "subtitle": "A cluster of active cells migrating through surrounding tissue  ·  cluster $s_0$ = 3.7, tissue $s_0$ = 3.7  ·  SPV (top) and AVM (bottom)",
   "col_headers": [
     "Fragmentation",
-    "Optimal interfacial tension",
-    "Pinning"
+    "Collective Internalization",
+    "Kinetic Pinning"
   ],
   "row_labels": [
     "SPV\n$v_0$ = 1.5",

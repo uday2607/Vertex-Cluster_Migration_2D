@@ -6,7 +6,7 @@ Polish:
   * cells are drawn with periodic images and the view is a clean RECTANGLE
     cut out of the box, so no cell is ever half-drawn at the box edge
   * rounded panels, column headers (regime), row labels (model, v0),
-    per-panel gamma tag, title + subtitle
+    per-panel gamma tag
   * time readout ("Equilibration", then t = 0 ... end of the run, counted
     from the start of production) with a progress bar, and a legend
   * motility arrows only after equilibration; equilibration plays fast,
@@ -66,7 +66,7 @@ CROP_H_UNITS = 12.0           # rectangle cut out of the 20 x 20 box (full width
 GAP = 0.28
 LEFT = 1.05
 RIGHT = 0.45
-TOP_TITLE = 1.05
+TOP_MARGIN = 0.25
 COL_HDR = 0.5
 FOOT = 1.15
 DPI = 150
@@ -335,19 +335,14 @@ def render_frame(args):
     pw, ph = geom["pw"], geom["ph"]
     LEFT = geom["left"]
 
-    # title block
-    tsize = min(21, 21 * (geom["fig_w"] - LEFT - 0.4) / (0.165 * len(spec["title"])))   # long titles shrink to fit the frame
-    axf.text(LEFT, H - 0.42, spec["title"], fontsize=tsize, fontweight="bold", color=INK, va="center", ha="left")
-    axf.text(LEFT, H - 0.82, spec["subtitle"], fontsize=11.5, color=MUTED, va="center", ha="left")
-
     # column headers
     for c, hdr in enumerate(spec["col_headers"]):
         cx = LEFT + c * (pw + GAP) + pw / 2
-        axf.text(cx, H - TOP_TITLE - COL_HDR / 2, hdr, fontsize=14, fontweight="bold", color=INK,
+        axf.text(cx, H - TOP_MARGIN - COL_HDR / 2, hdr, fontsize=14, fontweight="bold", color=INK,
                  va="center", ha="center")
 
     for r in range(nrow):
-        ytop = H - TOP_TITLE - COL_HDR - r * (ph + GAP)
+        ytop = H - TOP_MARGIN - COL_HDR - r * (ph + GAP)
         if spec.get("row_labels"):
             axf.text(LEFT - 0.2, ytop - ph / 2, spec["row_labels"][r], fontsize=13, fontweight="bold",
                      color=INK, va="center", ha="right", rotation=90, linespacing=1.5)
@@ -376,7 +371,7 @@ def render_frame(args):
                     bbox=dict(boxstyle="round,pad=0.28", fc="white", ec=RULE, lw=0.6, alpha=0.92))
 
     # progress bar + time
-    grid_bottom = H - TOP_TITLE - COL_HDR - nrow * ph - (nrow - 1) * GAP
+    grid_bottom = H - TOP_MARGIN - COL_HDR - nrow * ph - (nrow - 1) * GAP
     bar_y = grid_bottom - geom["axis_pad"] - 0.32
     bar_x0, bar_x1 = LEFT, LEFT + ncol * pw + (ncol - 1) * GAP
     axf.add_patch(FancyBboxPatch((bar_x0, bar_y - 0.03), bar_x1 - bar_x0, 0.04,
@@ -394,7 +389,7 @@ def render_frame(args):
     axf.text(bar_x1, bar_y - 0.2, label, fontsize=15, fontweight="bold", color=INK, va="center", ha="right")
 
     # legend
-    lx, ly = bar_x0, bar_y - 0.2
+    lx, ly = bar_x0, bar_y - 0.2 - (0.4 if spec.get("legend_two_rows") else 0.0)   # own row below the time label when the panel is narrow
     items = spec.get("legend_items") or [(mm.ACTIVE_FACE, "Cluster of active cells"), (mm.BG_FACE, "Surrounding tissue"),
                                           (mm.WALL_FACE, "Wall")]
     if spec.get("legend_wall") is False:
@@ -486,7 +481,7 @@ def make_grid_movie(spec, out_path):
     geom = {
         "pw": pw, "ph": ph, "left": left, "windows": windows, "axis_pad": axis_pad,
         "fig_w": left + ncol * pw + (ncol - 1) * GAP + RIGHT,
-        "fig_h": TOP_TITLE + COL_HDR + nrow * ph + (nrow - 1) * GAP + FOOT + axis_pad,
+        "fig_h": TOP_MARGIN + COL_HDR + nrow * ph + (nrow - 1) * GAP + FOOT + axis_pad + (0.4 if spec.get("legend_two_rows") else 0.0),
         "crop_x": crop_x, "crop_y": crop_y, "p0": p0,
     }
     print(f"{nrow}x{ncol} grid, {T} frames, production from frame {p0}; figure {geom['fig_w']:.2f} x {geom['fig_h']:.2f} in")
@@ -529,16 +524,16 @@ def resolve_file(name):
 
 
 def load_spec(path):
-    """Read a JSON movie spec (see specs/). Keys: nrow, ncol, files (paths or example ids), tags, title, subtitle, col_headers,
+    """Read a JSON movie spec (see specs/). Keys: nrow, ncol, files (paths or example ids), tags, col_headers,
     row_labels, axis, panel_w, crop_h, crop_x, left, wall, interface ('length' colours the cluster-tissue edges by length),
     legend_items [[colour, label], ...], type_colors {"1": hex, ...}, face2 [colour of type-2 cells per panel], stop_before_x,
-    absolute_time, last_frame, fixed_window, axes, periodic_x, legend_wall, frame_sec (seconds per production frame)."""
+    legend_two_rows (legend on its own row), absolute_time, last_frame, fixed_window, axes, periodic_x, legend_wall, frame_sec (seconds per production frame)."""
     import json
     if not os.path.exists(path):
         path = os.path.join(SPEC_DIR, path if path.endswith(".json") else path + ".json")
     with open(path) as f:
         spec = json.load(f)
-    for k in ("nrow", "ncol", "files", "tags", "title", "subtitle"):
+    for k in ("nrow", "ncol", "files", "tags"):
         if k not in spec:
             raise SystemExit(f"spec {path} is missing '{k}'")
     spec["files"] = [resolve_file(x) for x in spec["files"]]

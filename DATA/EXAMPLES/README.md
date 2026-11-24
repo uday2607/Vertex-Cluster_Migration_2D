@@ -4,6 +4,9 @@ Small, ready-made simulation outputs, one set per movie, so every movie of the p
 `MANIFEST.csv` lists every file with its figure and parameters. Each file is a run from the paper's simulations with every saved frame (one per 0.2 time units, T = 100), stored in a compact format
 (`PYTHON_ANALYSIS/movies/thin_example.py`: only the variables the movie scripts read, single precision), so the movies are the ones of the paper.
 
+Each movie shows one representative run, so it can differ from the corresponding figure (for example Movie 2, see `PYTHON_ANALYSIS/movies/README.md`);
+the parameters of every file are in `MANIFEST.csv`, which also gives the Supplementary Movie and panel label of each file.
+
 Names are `<id>__<parameter-encoded name>.nc` (the ensemble index is deliberately left out). The part after `__` is what the tools
 read the parameters from, so keep it intact. The ids:
 

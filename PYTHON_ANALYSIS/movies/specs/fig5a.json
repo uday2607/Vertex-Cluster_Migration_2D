@@ -1,6 +1,4 @@
 {
-  "title": "The Nodal difference decides leader–follower cohesion",
-  "subtitle": "Self-propelled Voronoi model  ·  4 + 4 cells",
   "col_headers": [
     "Nodal-high + Nodal-medium  ·  $\\alpha$ = 1, $\\beta$ = 6",
     "Nodal-high + Nodal-low  ·  $\\alpha$ = 1, $\\beta$ = 6"
